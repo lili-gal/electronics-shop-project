@@ -1,4 +1,6 @@
 import self as self
+import csv
+import os
 
 
 class Item:
@@ -16,10 +18,9 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self._name = name
         self.price = price
         self.quantity = quantity
-        Item.all.append(self)
 
     def calculate_total_price(self) -> float:
         """
@@ -35,4 +36,26 @@ class Item:
         """
         self.price = float(self.price * self.pay_rate)
 
+    @property
+    def name(self):
+        return self._name
 
+    # noinspection PyPropertyDefinition
+    @name.setter
+    def name(self, value):
+        if len(value) <= 10:
+            self._name = value
+        else:
+            print("Длина наименования товара превышает 10 символов.")
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open("C:/Users/User/PycharmProjects/electronics-shop-project/src/items.csv",  encoding='windows-1251') as file:
+            file_reader = csv.DictReader(file)
+            for row in file_reader:
+                item = cls(row['name'], cls.string_to_number(row['price']), int(row['quantity']))
+                cls.all.append(item)
+
+    @staticmethod
+    def string_to_number(value):
+        return int(float(value))
