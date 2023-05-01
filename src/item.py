@@ -51,7 +51,7 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
 
-        with open("C:/Users/User/PycharmProjects/electronics-shop-project/src/items.csv",  encoding='windows-1251') as file:
+        with open(os.path.abspath("C:/Users/User/PycharmProjects/electronics-shop-project/src/items.csv"),  encoding='windows-1251') as file:
             file_reader = csv.DictReader(file)
             for row in file_reader:
                 item = cls(row['name'], cls.string_to_number(row['price']), int(row['quantity']))
