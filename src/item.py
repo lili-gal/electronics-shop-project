@@ -18,7 +18,7 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self._name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
 
@@ -38,18 +38,19 @@ class Item:
 
     @property
     def name(self):
-        return self._name
+        return self.__name
 
     # noinspection PyPropertyDefinition
     @name.setter
     def name(self, value):
         if len(value) <= 10:
-            self._name = value
+            self.__name = value
         else:
             print("Длина наименования товара превышает 10 символов.")
 
     @classmethod
     def instantiate_from_csv(cls):
+
         with open("C:/Users/User/PycharmProjects/electronics-shop-project/src/items.csv",  encoding='windows-1251') as file:
             file_reader = csv.DictReader(file)
             for row in file_reader:
