@@ -1,5 +1,6 @@
 import pytest
 from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
@@ -30,10 +31,25 @@ def test_string_to_number():
     assert Item.string_to_number("5.0") == 5
     assert Item.string_to_number("5.5") == 5
 
+
 def test__repr__():
     item1 = Item('Смартфон', 10000, 20)
     assert repr(item1) == "Item('Смартфон', 10000, 20)"
 
+
 def test__str__():
     item1 = Item('Смартфон', 10000, 20)
     assert str(item1) == 'Смартфон'
+
+
+def test__repr__():
+    phone1 = Phone("iPhone 14", 120_000, 5, 2)
+    assert repr(phone1) == "Phone('iPhone 14', 120000, 5, 2)"
+    assert phone1.number_of_sim == 2
+
+
+def test__add__():
+    phone1 = Phone("iPhone 14", 120_000, 5, 2)
+    item1 = Item("Смартфон", 10000, 20)
+    assert item1 + phone1 == 25
+    assert phone1 + phone1 == 10
