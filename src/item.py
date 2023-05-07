@@ -3,6 +3,8 @@ import csv
 import os
 
 
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -27,6 +29,9 @@ class Item:
     
     def __str__(self):
         return f'{self.name}'
+
+    def __add__(self, other):
+        return self.quantity + other.quantity
 
     def calculate_total_price(self) -> float:
         """
