@@ -1,7 +1,7 @@
 import pytest
 from src.item import Item
 from src.phone import Phone
-
+from src.keyboard import KeyBoard
 
 @pytest.fixture
 def item3():
@@ -53,3 +53,11 @@ def test__add__():
     item1 = Item("Смартфон", 10000, 20)
     assert item1 + phone1 == 25
     assert phone1 + phone1 == 10
+
+
+def test_change_lang():
+    kb = KeyBoard('Dark Project KD87A', 9600, 5)
+    kb.change_lang().change_lang()
+    assert str(kb.language) == "EN"
+    kb.change_lang()
+    assert str(kb.language) == "RU"
