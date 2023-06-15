@@ -1,7 +1,9 @@
 import pytest
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 from src.keyboard import KeyBoard
+import csv
+
 
 @pytest.fixture
 def item3():
@@ -9,7 +11,6 @@ def item3():
 
 
 def test_calculate_total_price(item3):
-
     item3.calculate_total_price()
     assert item3.calculate_total_price() == 200000
 
@@ -61,3 +62,13 @@ def test_change_lang():
     assert str(kb.language) == "EN"
     kb.change_lang()
     assert str(kb.language) == "RU"
+
+
+def test_instantiate_from_csv_file_not_found():
+    with pytest.raises(FileNotFoundError, match="Отсутствует файл items.csv"):
+        Item.instantiate_from_csv()
+
+
+def test_instantiate_from_csv_file_corrupted():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv()
